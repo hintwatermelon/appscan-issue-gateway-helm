@@ -4,6 +4,7 @@
  */
 package com.hcl.appscan.issuegateway.appscanprovider.ase;
 
+import io.github.pixee.security.ZipSecurity;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -99,7 +100,7 @@ public class ASEIssueReportHandler {
 		} finally {
 		    stream.close();
 		}
-		ZipInputStream zipIn= new ZipInputStream(new FileInputStream(tempFile));
+		ZipInputStream zipIn= ZipSecurity.createHardenedInputStream(new FileInputStream(tempFile));
 		ZipEntry entry=zipIn.getNextEntry();
 		String filePath=tempDir.getPath()+File.separator+entry.getName();
 		
