@@ -11,6 +11,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.HttpCookie;
 import java.net.URI;
+import java.nio.file.Files;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -91,7 +92,7 @@ public class ASEIssueReportHandler {
 	}
 	
 	private File extractFile(ResponseEntity<byte[]> responseEntity) throws IOException{
-		File tempFile = File.createTempFile("response", ".zip");
+		File tempFile = Files.createTempFile("response", ".zip").toFile();
 		File tempDir=Files.createTempDir();
 		FileOutputStream stream = new FileOutputStream(tempFile);
 		try {

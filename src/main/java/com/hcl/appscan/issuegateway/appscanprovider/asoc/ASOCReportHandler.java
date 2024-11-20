@@ -8,6 +8,7 @@ package com.hcl.appscan.issuegateway.appscanprovider.asoc;
 import com.hcl.appscan.issuegateway.errors.ResponseErrorHandler;
 import com.hcl.appscan.issuegateway.issues.AppScanIssue;
 import com.hcl.appscan.issuegateway.issues.PushJobData;
+import java.nio.file.Files;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
@@ -55,7 +56,7 @@ public class ASOCReportHandler {
 
 				ResponseEntity<byte[]> responseEntity = restTemplate.exchange(url, HttpMethod.GET, entity, byte[].class, "1");
 				if (responseEntity.getStatusCode().is2xxSuccessful()) {
-					File tempFile = File.createTempFile("appscan", ".html");
+					File tempFile = Files.createTempFile("appscan", ".html").toFile();
 					try (FileOutputStream stream = new FileOutputStream(tempFile)) {
 						stream.write(responseEntity.getBody());
 					}
